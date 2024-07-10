@@ -29,6 +29,7 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
 
   render() {
     const {
+      onSnapToSection,
       sections,
       renderTab,
       tabBarStyle,
@@ -45,6 +46,7 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
           tabBarStyle={tabBarStyle}
           currentIndex={this.state.currentIndex}
           onPress={(index: number) => {
+            onSnapToSection&&onSnapToSection(index)
             this.setState({ currentIndex: index });
             this.blockUpdateIndex = true;
 
@@ -67,6 +69,7 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
             if (!this.blockUpdateIndex && viewableItems[0]) {
               const currentIndex = viewableItems[0].section.index;
               if (this.state.currentIndex !== currentIndex) {
+                onSnapToSection&&onSnapToSection(index)
                 this.setState({ currentIndex });
               }
             }
